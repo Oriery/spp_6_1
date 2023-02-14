@@ -18,6 +18,10 @@
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
+    <% if (error) { %>
+     <%- include('./partials/error') %>
+    <% } %>
+
     <ul class="list-group">
       <% debts.forEach((debt) => { %>
       <%- include('./partials/debt', {debt: debt}); %>

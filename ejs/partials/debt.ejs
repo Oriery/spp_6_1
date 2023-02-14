@@ -8,8 +8,9 @@
     <div class="btn-group">
         <% options.forEach(option => { %>
             <% if (option !== debt.status) { %>
-                <form method="post" action="/debts/<%= debt.id %>">
+                <form method="post">
                     <input type="hidden" name="status" value="<%= option %>" />
+                    <input type="hidden" name="id" value="<%= debt.id %>" />
                     <button type="submit" class="btn btn-primary" style="margin: 0.125rem; padding: 0.25rem;"><%= option %></button>
                 </form>
             <% } %>
