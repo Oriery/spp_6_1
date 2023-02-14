@@ -12,8 +12,10 @@
 
     <form method="post">
       <div class="mb-3">
-        <input class="form-control" type="text" name="name" />
-        <input class="form-control" type="number" name="amount" />
+        <label for="amount">Amount:</label>
+        <input class="form-control" id="amount" type="number" name="amount" />
+        <label for="name">Comment</label>
+        <input class="form-control" id="name" type="text" name="name" placeholder="For taxi"/>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
