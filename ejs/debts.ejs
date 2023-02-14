@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('./partials/head'); %>
+</head>
+
+<body>
+  <%- include('./partials/navbar'); %>
+  <div class="container">
+    <h1>My Debts</h1>
+
+    <form method="post">
+      <div class="mb-3">
+        <input class="form-control" type="text" name="name" />
+        <input class="form-control" type="number" name="amount" />
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <ul class="list-group">
+      <% debts.forEach((debt) => { %>
+      <%- include('./partials/debt', {debt: debt}); %>
+      <% }) %>
+    </ul>
+  </div>
+</body>
+
+</html>
