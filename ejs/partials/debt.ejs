@@ -1,4 +1,18 @@
 <li class="list-group-item"  @click="remove(server.id)">
     <%= debt.name %>
     <strong><%= debt.amount %></strong>
+    <%= debt.status %>
+
+    <% let options = ['paid', 'pending', 'cancelled'] %>
+     
+    <div class="btn-group">
+        <% options.forEach(option => { %>
+            <% if (option !== debt.status) { %>
+                <form method="post" action="/debts/<%= debt.id %>">
+                    <input type="hidden" name="status" value="<%= option %>" />
+                    <button type="submit" class="btn btn-primary" style="margin: 0.125rem; padding: 0.25rem;"><%= option %></button>
+                </form>
+            <% } %>
+        <% }) %>
+    </div>
 </li>
