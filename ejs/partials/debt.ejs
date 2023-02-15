@@ -1,6 +1,6 @@
 <li class="list-group-item"  @click="remove(server.id)">
     <%= debt.name %> -
-    <strong><%= debt.amount %></strong> -
+    <strong><%= debt.amount + ' ' + debt.currency_code %></strong> -
     <%= debt.status %>
     <small class="text-muted"> <%= new Date(debt.createdAt).toLocaleString() %> </small>
 

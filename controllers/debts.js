@@ -12,7 +12,7 @@ const convertStatusBack = {
 }
 
 export const debtsPage = (req, res) => {
-  renderDebtsPage(res)
+  renderDebtsPage(req, res)
 }
 
 export const postDebt = (req, res) => {
@@ -21,12 +21,13 @@ export const postDebt = (req, res) => {
   const newDebt = {
     name: req.body.name,
     initAmount: req.body.amount,
+    currency_code: req.body.currency,
     creditorUser_ID: '93b0598d-0fdb-441a-b3a5-f6da794d37eb'
   }
   
   axios.post('http://localhost:4004/user/Debts', newDebt)
 
-  renderDebtsPage(res)
+  renderDebtsPage(req, res)
 }
 
 async function setDebtStatus (req, res) {
@@ -35,14 +36,20 @@ async function setDebtStatus (req, res) {
   const result = await axios.patch(`http://localhost:4004/user/Debts/${id}`, {status: convertStatusBack[status]})
   
   if (result.status === 200) {
-    renderDebtsPage(res)
+    renderDebtsPage(req, res)
   } else {
-    renderDebtsPage(res, {code: 404, message: 'Debt not found.'})
+    renderDebtsPage(req, res, {code: 404, message: 'Debt not found.'})
   }
 } 
 
-async function renderDebtsPage(res, error) {
-  res.render('debts', {title: 'Debts', active: 'debts', debts: await getDebts(), error : error})
+async function renderDebtsPage(req, res, error) {
+  res.render('debts', {
+    title: 'Debts', 
+    active: 'debts', 
+    debts: await getDebts(), 
+    error : error,
+    currency: req.body.currency || 'BYN'
+  })
 }
 
 async function getDebts() {
