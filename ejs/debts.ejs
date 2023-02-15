@@ -26,6 +26,12 @@
      <%- include('./partials/error') %>
     <% } %>
 
+    <% if (showingAllDebts) { %>
+      <a href="/debts">Show only pending debts</a>
+    <% } else { %>
+      <a href="/debts?all=1">Show all debts</a>
+    <% } %>
+
     <ul class="list-group">
       <% debts.forEach((debt) => { %>
       <%- include('./partials/debt', {debt: debt}); %>

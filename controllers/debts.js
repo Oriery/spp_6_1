@@ -46,14 +46,15 @@ async function renderDebtsPage(req, res, error) {
   res.render('debts', {
     title: 'Debts', 
     active: 'debts', 
-    debts: await getDebts(), 
+    debts: await getDebts(req), 
     error : error,
-    currency: req.body.currency || 'BYN'
+    currency: req.body.currency || 'BYN',
+    showingAllDebts: req.query.all
   })
 }
 
-async function getDebts() {
-  const response = await axios.get('http://localhost:4004/user/Debts')
+async function getDebts(req) {
+  const response = await axios.get(`http://localhost:4004/user/Debts?${req.query.all ? '' : "$filter=status eq '0'"}`)
 
   let debts = response.data.value
   // convert to right format
