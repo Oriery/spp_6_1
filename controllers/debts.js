@@ -5,6 +5,11 @@ const convertStatus = {
   1: 'paid',
   2: 'cancelled'
 }
+const convertStatusBack = {
+  pending: '0',
+  paid: '1',
+  cancelled: '2'
+}
 
 export const debtsPage = (req, res) => {
   renderDebtsPage(res)
@@ -14,12 +19,9 @@ export const postDebt = (req, res) => {
   if (req.body.id) { setDebtStatus(req, res); return }
 
   const newDebt = {
-    id: Date.now().toString(),
-    status: 'pending',
-    iOwe: req.body.iOwe === 'true',
     name: req.body.name,
-    person: req.body.person,
-    amount: req.body.amount
+    initAmount: req.body.amount,
+    creditorUser_ID: '93b0598d-0fdb-441a-b3a5-f6da794d37eb'
   }
   
   axios.post('http://localhost:4004/user/Debts', newDebt)
@@ -30,10 +32,9 @@ export const postDebt = (req, res) => {
 async function setDebtStatus (req, res) {
   const {status, id} = req.body
 
-  const debt = await axios.get(`http://localhost:4004/user/Debts/${id}`)
-
-  if (debt) {
-    debt.status = status
+  const result = await axios.patch(`http://localhost:4004/user/Debts/${id}`, {status: convertStatusBack[status]})
+  
+  if (result.status === 200) {
     renderDebtsPage(res)
   } else {
     renderDebtsPage(res, {code: 404, message: 'Debt not found.'})
