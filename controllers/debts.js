@@ -19,7 +19,7 @@ export const postDebt = (req, res) => {
   if (req.body.id) { setDebtStatus(req, res); return }
 
   const newDebt = {
-    name: req.body.name,
+    name: (req.body.iOwe === '1' ? `I owe to ${req.body.person}` : `${req.body.person} owes to me`) + ' - ' + (req.body.name.length ? req.body.name : 'no comment for debt'),
     initAmount: req.body.amount,
     currency_code: req.body.currency,
     creditorUser_ID: '93b0598d-0fdb-441a-b3a5-f6da794d37eb'

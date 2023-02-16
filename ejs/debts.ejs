@@ -12,12 +12,21 @@
 
     <form method="post">
       <div class="mb-3">
-        <label for="amount">Amount:</label>
+        <label for="person">Person</label>
+        <input class="form-control" id="person" type="text" name="person" placeholder="John" required/>
+        <div class="form-check">
+          <input class="form-check-input" id="iOwe" type="radio" name="iOwe" value="1" checked/>
+          <label class="form-check-label" for="iOwe">I owe</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" id="iAmOwed" type="radio" name="iOwe" value="0"/>
+          <label class="form-check-label" for="iAmOwed">I am owed</label>
+        </div>
+        <label for="amount">Amount</label>
         <input class="form-control" id="amount" type="number" name="amount" required/>
-        <label for="currency">Currency</label>
         <input class="form-control" id="currency" type="text" name="currency" value="<%= currency %>" required minlength="3" maxlength="3"/>
         <label for="name">Comment</label>
-        <input class="form-control" id="name" type="text" name="name" placeholder="For taxi" required/>
+        <input class="form-control" id="name" type="text" name="name" placeholder="For taxi"/>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
